@@ -168,7 +168,9 @@ def train(config, writer, device):
             optimizer.step()
 
             writer.add_scalar("Train/Step-Loss", loss.item(), train_step)
+            print("Train/Step-Loss", loss.item(), train_step)
             writer.add_scalar("Train/Learning-Rate", learning_rate, train_step)
+            print("Train/Learning-Rate", learning_rate, train_step)
 
         # Save the model and optimizer state
         save_checkpoint(decoder, optimizer, start_time, epoch)
@@ -185,8 +187,10 @@ def train(config, writer, device):
                 # Log the evaluated BLEU score
                 for i, t_b in enumerate(train_bleu):
                     writer.add_scalar(f"Train/BLEU-{i+1}", t_b, epoch)
+                    print(f"Train/BLEU-{i+1}", t_b, epoch)
                 for i, v_b in enumerate(valid_bleu):
                     writer.add_scalar(f"Valid/BLEU-{i+1}", v_b, epoch)
+                    print(f"Valid/BLEU-{i+1}", v_b, epoch)
 
                 decoder.train()
             
